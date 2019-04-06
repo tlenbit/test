@@ -26,6 +26,9 @@ def parse_key(key):
     return {'tag': key, 'id': '', 'classes': []}
 
 def json_to_html(source):
+    if not source:
+        return ''
+
     if type(source) == str:
         return html.escape(source)
 
