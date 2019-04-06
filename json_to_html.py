@@ -2,13 +2,13 @@ import json
 
 
 def html_element(tag_name, inner_html):
-    return f"<{tag_name}>{inner_html}</{tag_name}>"
+    return f'<{tag_name}>{inner_html}</{tag_name}>'
 
 def parse_dict(d):
     return ''.join([html_element(tag_name, d[tag_name]) for tag_name in d])
 
 def json_to_html(source):
-    return ''.join([parse_dict(el) for el in source])
+    return '<ul>' + ''.join([f'<li>{parse_dict(el)}</li>' for el in source]) + '</ul>'
 
 
 if __name__ == '__main__':
