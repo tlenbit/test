@@ -1,5 +1,6 @@
 import json
 import re
+import html
 from collections import OrderedDict
 
 
@@ -26,7 +27,7 @@ def parse_key(key):
 
 def json_to_html(source):
     if type(source) == str:
-        return source
+        return html.escape(source)
 
     if type(source) == OrderedDict:
         return ''.join([get_element(**parse_key(key), inner_html=json_to_html(source[key])) for key in source])
