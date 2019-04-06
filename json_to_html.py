@@ -1,14 +1,16 @@
 import json
 
 
-def html_element(tag_name, inner_html):
-    return f'<{tag_name}>{inner_html}</{tag_name}>'
-
-def parse_dict(d):
-    return ''.join([html_element(tag_name, d[tag_name]) for tag_name in d])
+def get_element(tag, inner_html):
+    return f'<{tag}>{inner_html}</{tag}>'
 
 def json_to_html(source):
-    return '<ul>' + ''.join([f'<li>{parse_dict(el)}</li>' for el in source]) + '</ul>'
+    if type(source) == str:
+        return source
+    if type(source) == dict:
+        return ''.join([get_element(tag, json_to_html(source[tag])) for tag in source])
+    if type(source) == list:
+        return get_element('ul', ''.join([get_element('li', json_to_html(el)) for el in source]))
 
 
 if __name__ == '__main__':
